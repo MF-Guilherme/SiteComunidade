@@ -27,11 +27,11 @@ def usuarios():
 def login():
     form_login = FormLogin()
     form_criarconta = FormCriarConta()
-    
+    # se o formulario foi validado ao submeter E o botão for o 'botao de login' (utilizando o AND pq temos 2 forms na mesma página
     if form_login.validate_on_submit() and 'botao_submit_login' in request.form:
-        #exibir mensagem de login bem sucedido
+        # exibir mensagem de login bem sucedido
         flash(f'login feito com sucesso no e-mail: {form_login.email.data}', 'alert-success')
-        #redirecionar para a homepage
+        # redirecionar para a homepage
         return redirect(url_for('home'))
     if form_criarconta.validate_on_submit() and 'botao_submit_criar_conta' in request.form:
         flash(f'Conta criada para o e-mail: {form_criarconta.email.data}', 'alert-success')
