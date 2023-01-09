@@ -9,7 +9,8 @@ class Usuario(database.Model):
     senha = database.Column(database.String, nullable=False)
     foto_perfil = database.Column(database.String, default='default.jpg')
     posts = database.relationship('Post', backref='autor', lazy=True) # aqui criamos a relação do usuario com o post
-    cursos = database.Columns(database.String, nullable=False, default='Não informado')
+    cursos = database.Column(database.String, nullable=False, default='Não informado')
+
 
 class Post(database.Model):
     id = database.Column(database.Integer, primary_key=True)
