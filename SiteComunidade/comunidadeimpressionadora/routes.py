@@ -1,8 +1,10 @@
 from flask import render_template, request, flash, redirect, url_for
-from comunidadeimpressionadora import app
+from comunidadeimpressionadora import app, database
 from comunidadeimpressionadora.forms import FormLogin, FormCriarConta
+from comunidadeimpressionadora.models import Usuario
 
 lista_usuarios = ['Lira', 'Joao', 'Alex', 'Alessandra']
+
 
 @app.route("/")
 def home():
@@ -30,6 +32,12 @@ def login():
         # redirecionar para a homepage
         return redirect(url_for('home'))
     if form_criarconta.validate_on_submit() and 'botao_submit_criar_conta' in request.form:
+        # instanciar o Usuario
+        usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=form_criarconta.senha.data)
+        # adicionar a sessão
+        database.session.add(usuario)
+        # commit na sessão
+        database.session.commit()
         flash(f'Conta criada para o e-mail: {form_criarconta.email.data}', 'alert-success')
         return redirect(url_for('home'))
     return render_template('login.html', form_login=form_login, form_criarconta=form_criarconta)
