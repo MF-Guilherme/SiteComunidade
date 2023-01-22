@@ -34,8 +34,12 @@ def login():
             login_user(usuario, remember=form_login.lembrar_dados.data)
             # exibir mensagem de login bem sucedido
             flash(f'login feito com sucesso no e-mail: {form_login.email.data}', 'alert-success')
-            # redirecionar para a homepage
-            return redirect(url_for('home'))
+            parametro_next = request.args.get('next')
+            if parametro_next:
+                return redirect(parametro_next)
+            else:
+                # redirecionar para a homepage
+                return redirect(url_for('home'))
         else:
             flash(f'Falha no login. E-mail ou Senha incorretos.', 'alert-danger')
     if form_criarconta.validate_on_submit() and 'botao_submit_criar_conta' in request.form:
