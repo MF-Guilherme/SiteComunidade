@@ -47,7 +47,7 @@ def login():
             flash(f'Falha no login. E-mail ou Senha incorretos.', 'alert-danger')
     if form_criarconta.validate_on_submit() and 'botao_submit_criar_conta' in request.form:
         # instanciar o Usuario
-        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data)
+        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data).decode("utf-8")
         usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=senha_cript)
         # adicionar a sessão
         database.session.add(usuario)
@@ -63,7 +63,7 @@ def login():
 def sair():
     logout_user()
     flash(f'Logout feito com sucesso!', 'alert-success')
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 
 @app.route('/perfil')
