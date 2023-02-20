@@ -7,8 +7,6 @@ import secrets
 import os
 from PIL import Image
 
-lista_usuarios = ['Lira', 'Joao', 'Alex', 'Alessandra']
-
 
 @app.route("/")
 def home():
