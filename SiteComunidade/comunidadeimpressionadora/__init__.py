@@ -5,7 +5,7 @@ from flask_login import LoginManager
 import os
 import sqlalchemy
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates/')
 
 app.config['SECRET_KEY'] = 'fe7d7f6bde3b0ec4e090e64b6384caf1'
 if os.getenv("DATABASE_URL"):
